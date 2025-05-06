@@ -91,8 +91,8 @@ function sendMessage() {
         loadingElement.style.display = 'block';
     }
 
-    const apiKey = 'sk-3d7be5af30674cfa9df31cea691ab3f3';
-    const endpoint = 'https://api.deepseek.com/v1/chat/completions';
+    const apiKey = '你的API Key';
+    const endpoint = 'https://api.deepseek.com/chat/completions';
 
     // 系统提示词（角色设定）
     const systemPrompt = `你是一个专业的温暖学姐型AI | 国家二级营养师资格 | 易班工作站官方认证，能够为同学解答易班相关问题，和为大学生们制定合理的运动健康方案与解答运动健康相关的问题。
@@ -115,23 +115,8 @@ function sendMessage() {
 -健康减肥建议不要太过夯长
 -无论每一个技能时用户是否打断或提出建议，完成用户要求后，再接着引导用户进入下一步，保持对话的连贯性`;
 
-    const messages = [
-        { role: "system", content: systemPrompt },
-        ...conversationHistory.map(msg => ({
-            role: msg.role === 'user' ? 'user' : 'assistant',
-            content: msg.role === 'user' ? msg.content : msg.content // 注意：这里可能需要处理格式化后的内容
-        })),
-        { role: "user", content: message }
-    ];
-
-    // 限制历史记录长度，避免超过token限制
-    if (messages.length > 20) {
-        messages.splice(1, messages.length - 20); // 保留最近的19条对话+系统提示
-    }
-
-    
     const payload = {
-        model: "deepseek-v3",
+        model: "deepseek-chat",
         messages: [
             { role: "system", content: systemPrompt },
             { role: "user", content: message }
